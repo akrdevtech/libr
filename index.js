@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const bookRouter = require('./routes/books');
 const userRouter = require('./routes/users');
 const auth = require('./middlewares/authMiddleware');
+const cors = require('cors');
 
 const app = express();
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URL)
     .catch(err => console.error('Could not connect to MongoDB...', err));
 
 app.use(express.json())
+app.use(cors());
 
 app.use('/api/books', auth, bookRouter);
 app.use('/api/users', userRouter);
